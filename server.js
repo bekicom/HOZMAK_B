@@ -13,10 +13,7 @@ dbConfig.connectDB();
 
 const corsOptions = {
   origin: [
-    "https://lolaaftol-f.vercel.app",
-    "http://localhost:3001", // Backend lokal
     "http://localhost:3000", // Backend lokal
-    "http://localhost:3004", // Backend lokal
   ],
   methods: ["GET", "POST", "PUT", "DELETE"], // Ruxsat etilgan HTTP metodlar
   credentials: true,
@@ -36,11 +33,7 @@ app.use(
 );
 
 app.use("/api", mainRoutes);
-// jhgshjgjgfdj
-// jhgshjgjgfdj
-// jhgshjgjgfdj
-// jhgshjgjgfdj
-// jhgshjgjgfdj
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
