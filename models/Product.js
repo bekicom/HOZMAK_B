@@ -17,7 +17,11 @@ const productSchema = new mongoose.Schema({
   count_type: { type: String, required: true },
   barcode: { type: String, required: true, unique: true },
   special_notes: { type: String },
-  kimdan_kelgan: { type: String, required: true },
+  supplier_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Supplier",
+  },
+  kimdan_kelgan: { type: String },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 });

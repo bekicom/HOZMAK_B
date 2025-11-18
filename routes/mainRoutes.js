@@ -12,6 +12,7 @@ const masterController = require("../controllers/masterController");
 const expenseController = require("../controllers/expenseController");
 const usdRateController = require("../controllers/UsdRateController");
 const nasiyaController = require("../controllers/nasiyaController");
+const supplierController = require("../controllers/supplier.controller"); // ✅ TO'G'RILANDI: supplierController
 
 // Middleware
 const authMiddleware = require("../middleware/authMiddleware");
@@ -42,6 +43,60 @@ router.put(
   authMiddleware.verifyToken,
   authMiddleware.verifyRole(["admin"]),
   adminController.updateAdmin
+);
+
+// ==== SUPPLIER ROUTES ====
+router.post(
+  "/suppliers",
+  authMiddleware.verifyToken,
+  supplierController.createSupplier
+);
+router.get(
+  "/suppliers",
+  authMiddleware.verifyToken,
+  supplierController.getSuppliers
+);
+router.put(
+  "/suppliers/:id",
+  authMiddleware.verifyToken,
+  supplierController.updateSupplier
+);
+router.delete(
+  "/suppliers/:id",
+  authMiddleware.verifyToken,
+  supplierController.deleteSupplier
+);
+router.get(
+  "/suppliers/:id",
+  authMiddleware.verifyToken,
+  supplierController.getSupplierById
+);
+
+// ==== PRODUCT RECEIPT ROUTES ==== ✅ YANGI QO'SHILDI
+router.post(
+  "/product-receipts",
+  authMiddleware.verifyToken,
+  productController.createProductReceipt
+);
+router.get(
+  "/product-receipts",
+  authMiddleware.verifyToken,
+  productController.getProductReceipts
+);
+router.post(
+  "/supplier-payment",
+  authMiddleware.verifyToken,
+  productController.payToSupplier
+);
+router.get(
+  "/products/supplier/:supplier_id",
+  authMiddleware.verifyToken,
+  productController.getProductsBySupplier
+);
+router.get(
+  "/debtor-suppliers",
+  authMiddleware.verifyToken,
+  productController.getDebtorSuppliers
 );
 
 // ==== PRODUCT ROUTES ====
@@ -122,6 +177,12 @@ router.post(
   "/debtors/return",
   authMiddleware.verifyToken,
   debtorController.vazvratDebt
+);
+
+router.get(
+  "/debtor/payments",
+  authMiddleware.verifyToken,
+  debtorController.getDebtorPayments
 );
 
 // ==== NASIYA ROUTES ====
