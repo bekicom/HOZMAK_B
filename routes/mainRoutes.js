@@ -55,42 +55,44 @@ router.put(
 // ============================================================
 // ===================== CLIENT ROUTES ========================
 // ============================================================
-// *** NEW: mijozlar moduli ***
 
 router.post("/clients", auth.verifyToken, clientController.createClient);
-
 router.get("/clients", auth.verifyToken, clientController.getAllClients);
-
 router.get("/clients/:id", auth.verifyToken, clientController.getClientById);
-
 router.put("/clients/:id", auth.verifyToken, clientController.updateClient);
-
 router.delete("/clients/:id", auth.verifyToken, clientController.deleteClient);
+
+// ✅ NEW: client qarz yozish
+router.post("/clients/:id/debt", auth.verifyToken, clientController.addDebt);
+
+// ✅ NEW: client qarzidan to'lov qilish
+router.post("/clients/:id/pay", auth.verifyToken, clientController.payDebt);
 
 // ============================================================
 // ===================== PRODUCT ROUTES =======================
 // ============================================================
 
 router.post("/products", auth.verifyToken, productController.createProduct);
-
 router.get("/products", auth.verifyToken, productController.getAllProducts);
-
 router.put("/products/:id", auth.verifyToken, productController.updateProduct);
-
 router.delete(
   "/products/:id",
   auth.verifyToken,
   productController.deleteProduct
 );
 
-router.get("/products/barcode/:barcode", productController.getProductByBarcode);
+// ✅ tavsiya: auth qo'shildi (xohlasangiz olib tashlang)
+router.get(
+  "/products/barcode/:barcode",
+  auth.verifyToken,
+  productController.getProductByBarcode
+);
 
 // ============================================================
 // ======================= SALES ROUTES =======================
 // ============================================================
 
 router.post("/sales", saleController.recordSale);
-
 router.delete("/sales/:id", auth.verifyToken, saleController.deleteSale);
 
 router.get("/sales", saleController.getSalesHistory);
@@ -100,7 +102,6 @@ router.get("/sales/monthly", saleController.getMonthlySales);
 router.get("/sales/yearly", saleController.getYearlySales);
 
 router.get("/stock/compare", saleController.compareStockLevels);
-
 router.get("/stat/year", auth.verifyToken, saleController.getLast12MonthsSales);
 
 // ============================================================
@@ -108,17 +109,11 @@ router.get("/stat/year", auth.verifyToken, saleController.getLast12MonthsSales);
 // ============================================================
 
 router.post("/debtors", auth.verifyToken, debtorController.createDebtor);
-
 router.put("/debtor/:id", auth.verifyToken, debtorController.editDebtor);
-
 router.post("/pay/debtor", auth.verifyToken, debtorController.createPayment);
-
 router.get("/debtors", auth.verifyToken, debtorController.getAllDebtors);
-
 router.put("/debtors/:id", auth.verifyToken, debtorController.updateDebtor);
-
 router.delete("/debtors/:id", auth.verifyToken, debtorController.deleteDebtor);
-
 router.post("/debtors/return", auth.verifyToken, debtorController.vazvratDebt);
 
 // ============================================================
@@ -126,7 +121,6 @@ router.post("/debtors/return", auth.verifyToken, debtorController.vazvratDebt);
 // ============================================================
 
 router.post("/nasiya/create", auth.verifyToken, nasiyaController.createNasiya);
-
 router.get("/nasiya/get", auth.verifyToken, nasiyaController.getNasiya);
 
 router.post(
@@ -135,6 +129,9 @@ router.post(
   nasiyaController.completeNasiya
 );
 
+// ============================================================
+// ===================== STORE ROUTES =========================
+// ============================================================
 
 router.post("/store/add", storeController.addProductToStore);
 router.get("/store", storeController.getStoreProducts);
@@ -170,7 +167,6 @@ router.post("/usd", usdRateController.updateUsdRate);
 // ============================================================
 
 router.post("/master", auth.verifyToken, masterController.createMaster);
-
 router.get("/masters", auth.verifyToken, masterController.getMasters);
 
 router.post(

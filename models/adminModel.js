@@ -14,6 +14,7 @@ const adminSchema = new mongoose.Schema({
     adminlar: { type: Boolean, default: false },
     sotuv_tarixi: { type: Boolean, default: false },
     dokon: { type: Boolean, default: false },
+    yetkazibberuvchi: { type: Boolean, default: false },
     SalesStatistics: { type: Boolean, default: false },
   },
 });
