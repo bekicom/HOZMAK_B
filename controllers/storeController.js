@@ -19,19 +19,17 @@ async function resolveClient(client, session) {
 
   if (found) return found;
 
+  // ✅ YANGI KOD - type majburiy "supplier"
   const payload = {
     name: name || "Noma'lum",
     phone: phone || undefined,
     address: client.address ? client.address.trim() : "",
-    type: ["supplier", "customer"].includes(client.type)
-      ? client.type
-      : "customer",
+    type: "supplier", // ✅ Har doim supplier
   };
 
   const created = await Client.create([payload], { session });
   return created[0];
 }
-
 // Dokonga mahsulot qo'shish (ombordan dokonga ko'chirish)
 exports.addProductToStore = async (req, res) => {
   const session = await mongoose.startSession();
@@ -300,14 +298,16 @@ exports.createProductToStore = async (req, res) => {
     await newStoreProduct.save({ session });
 
     // ✅ agar client bo‘lsa qarz yozamiz (customer side)
-    if (clientDoc) {
-      clientDoc.addCustomerDebt({
+    // ✅ agar client bo'lsa qarz yozamiz (SUPPLIER side)
+    if (clientDoc && clientDoc.type === "supplier") {
+      clientDoc.addSupplierDebt({
+        // ✅ supplier debt bo'lishi kerak
         product_id: newProduct._id,
         product_name: newProduct.product_name,
         quantity: newProduct.stock,
-        price_per_item: newProduct.sell_price,
+        price_per_item: newProduct.purchase_price, // ✅ PURCHASE price
         paid_amount: newProduct.paid_amount,
-        currency: newProduct.sell_currency || "sum",
+        currency: newProduct.purchase_currency || "sum", // ✅ purchase currency
         note: newProduct.special_notes || "",
       });
       await clientDoc.save({ session });
