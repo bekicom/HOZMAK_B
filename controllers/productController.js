@@ -6,7 +6,7 @@ const Client = require("../models/client");
 const mongoose = require("mongoose");
 
 /**
- * Supplier topish yoki yaratish (transaction ichida)
+r topish yoki yaratish (transaction ichida)
  */
 async function resolveSupplier(supplier, session) {
   if (!supplier || (!supplier.phone && !supplier.name)) return null;
