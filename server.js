@@ -14,6 +14,7 @@ dbConfig.connectDB();
 const corsOptions = {
   origin: [
     "http://localhost:3000", // Backend lokal
+    "https://hozmak-f-61sz.vercel.app", // Backend lokal
   ],
   methods: ["GET", "POST", "PUT", "DELETE"], // Ruxsat etilgan HTTP metodlar
   credentials: true,
