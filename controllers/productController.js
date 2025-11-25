@@ -2,7 +2,7 @@
 
 const Product = require("../models/Product");
 const Store = require("../models/Store"); // hozircha ishlatilmasa ham qoldirdim
-const Client = require("../models/Client");
+const Client = require("../models/client");
 const mongoose = require("mongoose");
 
 /**
