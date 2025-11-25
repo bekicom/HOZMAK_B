@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Store = require("../models/Store");
 const Product = require("../models/Product");
 const Sale = require("../models/Sale");
-const Client = require("../models/Client");
+const Client = require("../models/client");
 
 /**
  * Client topish yoki yaratish (transaction ichida)
